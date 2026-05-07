@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Assessment - AI-Resistant Technical Evaluation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Permission Request Screen -->
+        <div id="permission-screen" class="screen active">
+            <div class="permission-container">
+                <h1>🔒 Internship Assessment Platform</h1>
+                <p class="warning">⚠️ This assessment requires full system access for proctoring</p>
+                <div class="requirements">
+                    <h3>Required Permissions:</h3>
+                    <ul>
+                        <li>📷 Camera access for identity verification</li>
+                        <li>🎤 Microphone access for audio monitoring</li>
+                        <li>🖥️ Screen recording for activity tracking</li>
+                        <li>⌨️ Keyboard input monitoring</li>
+                        <li>🖱️ Mouse click tracking</li>
+                        <li>📑 Browser tab focus monitoring</li>
+                        <li>⏱️ Timed challenges (no extensions)</li>
+                    </ul>
+                </div>
+                <div class="consent">
+                    <label>
+                        <input type="checkbox" id="consent-check">
+                        I consent to full monitoring during this assessment
+                    </label>
+                </div>
+                <button id="start-btn" class="btn-primary" disabled>Grant Permissions & Start</button>
+            </div>
+        </div>
+
+        <!-- Loading/Transition Screen -->
+        <div id="loading-screen" class="screen">
+            <div class="loader"></div>
+            <p id="loading-text">Initializing environment...</p>
+        </div>
+
+        <!-- Main Assessment Container -->
+        <div id="assessment-screen" class="screen">
+            <!-- Header with timer and status -->
+            <header class="assessment-header">
+                <div class="candidate-info">
+                    <span id="candidate-name">Candidate: Guest</span>
+                    <span id="session-id">Session: ---</span>
+                </div>
+                <div class="timer-container">
+                    <span class="timer-label">Time Remaining:</span>
+                    <span id="timer" class="timer">00:00</span>
+                </div>
+                <div class="status-indicators">
+                    <span id="camera-status" class="status">📷 Camera: <span class="status-off">OFF</span></span>
+                    <span id="focus-status" class="status">👁️ Focus: <span class="status-on">ACTIVE</span></span>
+                    <span id="question-counter">Question: 1/10</span>
+                </div>
+            </header>
+
+            <!-- Environment Container (Terminal, IntelliJ, Windows) -->
+            <main id="environment-container">
+                <!-- Dynamic content will be injected here -->
+            </main>
+
+            <!-- Action Bar -->
+            <footer class="action-bar">
+                <button id="prev-btn" class="btn-secondary" disabled>← Previous</button>
+                <button id="next-btn" class="btn-primary">Next →</button>
+                <button id="submit-btn" class="btn-success" style="display:none;">Submit Assessment</button>
+            </footer>
+        </div>
+
+        <!-- Completion Screen -->
+        <div id="completion-screen" class="screen">
+            <div class="completion-container">
+                <h1>✅ Assessment Complete!</h1>
+                <p>Thank you for completing the internship assessment.</p>
+                <p>Your responses have been recorded and will be reviewed by our team.</p>
+                <div id="summary-stats"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden canvas for screen capture -->
+    <canvas id="screen-capture" style="display:none;"></canvas>
+    
+    <!-- Hidden video element for camera -->
+    <video id="webcam" autoplay muted style="display:none;"></video>
+
+    <script src="app.js"></script>
+</body>
+</html>
