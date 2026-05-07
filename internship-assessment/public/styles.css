@@ -1,0 +1,655 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#app {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+.screen {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.screen.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Permission Screen */
+.permission-container,
+.completion-container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    text-align: center;
+}
+
+.permission-container h1,
+.completion-container h1 {
+    color: #1e3c72;
+    margin-bottom: 20px;
+}
+
+.warning {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    color: #856404;
+    font-weight: bold;
+}
+
+.requirements {
+    text-align: left;
+    margin: 20px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.requirements h3 {
+    color: #1e3c72;
+    margin-bottom: 15px;
+}
+
+.requirements ul {
+    list-style: none;
+}
+
+.requirements li {
+    padding: 8px 0;
+    color: #333;
+}
+
+.consent {
+    margin: 20px 0;
+    padding: 15px;
+    background: #e7f3ff;
+    border-radius: 8px;
+}
+
+.consent label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #1e3c72;
+}
+
+.consent input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary,
+.btn-success {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+}
+
+.btn-primary {
+    background: #1e3c72;
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #2a5298;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #5a6268;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+    background: #218838;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Loading Screen */
+#loading-screen {
+    background: #1e3c72;
+    flex-direction: column;
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#loading-text {
+    color: white;
+    font-size: 18px;
+}
+
+/* Assessment Screen */
+#assessment-screen {
+    flex-direction: column;
+    background: #1a1a2e;
+}
+
+.assessment-header {
+    background: #16213e;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 2px solid #0f3460;
+}
+
+.candidate-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: #e94560;
+    font-weight: bold;
+}
+
+.timer-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.timer-label {
+    color: #fff;
+    font-weight: bold;
+}
+
+.timer {
+    background: #e94560;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 24px;
+    font-weight: bold;
+    min-width: 120px;
+    text-align: center;
+}
+
+.status-indicators {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.status {
+    color: #fff;
+    font-size: 14px;
+}
+
+.status-on {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.status-off {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+#question-counter {
+    background: #0f3460;
+    padding: 8px 15px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+/* Environment Container */
+#environment-container {
+    flex: 1;
+    width: 100%;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Terminal Environment */
+.terminal-window {
+    width: 90%;
+    max-width: 1000px;
+    height: 500px;
+    background: #0d1117;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal-header {
+    background: #161b22;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #30363d;
+}
+
+.terminal-button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.terminal-button.close { background: #ff5f56; }
+.terminal-button.minimize { background: #ffbd2e; }
+.terminal-button.maximize { background: #27c93f; }
+
+.terminal-title {
+    flex: 1;
+    text-align: center;
+    color: #8b949e;
+    font-size: 14px;
+}
+
+.terminal-body {
+    flex: 1;
+    padding: 15px;
+    color: #c9d1d9;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal-output {
+    flex: 1;
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.terminal-prompt {
+    color: #27c93f;
+    font-weight: bold;
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    color: #c9d1d9;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    flex: 1;
+    outline: none;
+    caret-color: #c9d1d9;
+}
+
+/* IntelliJ Environment */
+.intellij-window {
+    width: 90%;
+    max-width: 1200px;
+    height: 600px;
+    background: #2b2b2b;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.intellij-menu-bar {
+    background: #3c3f41;
+    padding: 8px 15px;
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #1e1e1e;
+}
+
+.menu-item {
+    color: #bbbbbb;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.menu-item:hover {
+    background: #4c5052;
+}
+
+.intellij-toolbar {
+    background: #3c3f41;
+    padding: 8px 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border-bottom: 1px solid #1e1e1e;
+}
+
+.toolbar-icon {
+    width: 24px;
+    height: 24px;
+    background: #4c5052;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bbbbbb;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.intellij-main {
+    flex: 1;
+    display: flex;
+}
+
+.intellij-project-panel {
+    width: 250px;
+    background: #313335;
+    border-right: 1px solid #1e1e1e;
+    padding: 10px;
+}
+
+.intellij-editor {
+    flex: 1;
+    background: #2b2b2b;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.code-line {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #a9b7c6;
+}
+
+.line-number {
+    color: #606366;
+    margin-right: 15px;
+    user-select: none;
+}
+
+.keyword { color: #cc7832; }
+.string { color: #6a8759; }
+.method { color: #ffc66d; }
+.class { color: #a9b7c6; }
+.comment { color: #808080; }
+
+.intellij-status-bar {
+    background: #3c3f41;
+    padding: 5px 15px;
+    display: flex;
+    justify-content: space-between;
+    color: #bbbbbb;
+    font-size: 12px;
+    border-top: 1px solid #1e1e1e;
+}
+
+/* Windows Environment */
+.windows-window {
+    width: 90%;
+    max-width: 1100px;
+    height: 600px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.windows-title-bar {
+    background: linear-gradient(90deg, #0078d4, #005a9e);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.windows-title {
+    font-weight: bold;
+}
+
+.windows-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.windows-control {
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.windows-control:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.windows-desktop {
+    flex: 1;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%230078d4" width="1200" height="800"/><circle cx="600" cy="400" r="300" fill="%23005a9e" opacity="0.5"/></svg>');
+    background-size: cover;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.desktop-icon {
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.desktop-icon:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.desktop-icon .icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.desktop-icon span {
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.windows-taskbar {
+    background: #1a1a1a;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.start-button {
+    background: #0078d4;
+    padding: 8px 15px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.taskbar-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.taskbar-icon {
+    width: 40px;
+    height: 40px;
+    background: #333;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.system-tray {
+    color: white;
+    font-size: 12px;
+}
+
+/* Question Panel */
+.question-panel {
+    background: #16213e;
+    border: 2px solid #0f3460;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.question-title {
+    color: #e94560;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.question-description {
+    color: #fff;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.question-hint {
+    background: #0f3460;
+    padding: 10px;
+    border-radius: 4px;
+    color: #aaa;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.action-bar {
+    background: #16213e;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    border-top: 2px solid #0f3460;
+}
+
+/* Focus Lost Warning */
+.focus-lost-warning {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #dc3545;
+    color: white;
+    padding: 30px 50px;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    text-align: center;
+    display: none;
+}
+
+.focus-lost-warning h2 {
+    margin-bottom: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .assessment-header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    .status-indicators {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .terminal-window,
+    .intellij-window,
+    .windows-window {
+        width: 95%;
+        height: 400px;
+    }
+}
